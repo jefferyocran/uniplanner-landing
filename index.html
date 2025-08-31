@@ -3,649 +3,1336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniPlanner - Your Intelligent Academic Companion</title>
+    <title>UniPlanner - Academic Scheduler for Ghanaian Universities</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --gradient: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
-        }
-        
+        /* Base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            color: var(--dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #000;
+            color: #fff;
             line-height: 1.6;
-            overflow-x: hidden;
         }
         
+        /* Utility classes */
         .container {
-            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1rem;
         }
         
-        /* Header & Navigation */
-        header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
+        .flex {
+            display: flex;
         }
         
+        .hidden {
+            display: none;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        /* Component styles */
         nav {
+            position: relative;
+            z-index: 50;
+            padding: 1.5rem 1rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid #374151;
+        }
+        
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .logo {
             display: flex;
             align-items: center;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary);
+            gap: 0.5rem;
         }
         
-        .logo i {
-            margin-right: 10px;
-        }
-        
-        .nav-links {
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(to right, #22d3ee, #f97316);
+            border-radius: 0.5rem;
             display: flex;
-            list-style: none;
+            align-items: center;
+            justify-content: center;
         }
         
-        .nav-links li {
-            margin-left: 30px;
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: bold;
         }
         
-        .nav-links a {
+        .desktop-menu {
+            display: none;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .desktop-menu {
+                display: flex;
+            }
+        }
+        
+        .desktop-menu a {
+            color: #fff;
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
             transition: color 0.3s;
         }
         
-        .nav-links a:hover {
-            color: var(--primary);
+        .desktop-menu a:hover {
+            color: #22d3ee;
         }
         
-        .cta-button {
-            background: var(--gradient);
-            color: white;
+        .mobile-menu-button {
+            display: block;
+            background: none;
             border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 600;
+            color: #fff;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        @media (min-width: 768px) {
+            .mobile-menu-button {
+                display: none;
+            }
         }
         
-        /* Hero Section */
+        .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(4px);
+            border-top: 1px solid #374151;
+        }
+        
+        .mobile-menu-content {
+            padding: 1.5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu a:hover {
+            color: #22d3ee;
+        }
+        
+        section {
+            padding: 5rem 1rem;
+        }
+        
         .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(58, 12, 163, 0.05) 100%);
+            position: relative;
+            padding: 5rem 1rem;
             text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .hero {
+                padding: 8rem 1rem;
+            }
         }
         
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            background: var(--gradient);
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #22d3ee, #f97316, #fbbf24);
             -webkit-background-clip: text;
             background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
         }
         
         .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: #666;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .app-demo {
-            margin-top: 60px;
-            max-width: 900px;
+            font-size: 1.125rem;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+            max-width: 64rem;
             margin-left: auto;
             margin-right: auto;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-radius: 20px;
-            overflow: hidden;
         }
         
-        .app-demo img {
-            width: 100%;
-            display: block;
-        }
-        
-        /* Problem Section */
-        .problem {
-            padding: 100px 0;
-            background: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-        
-        .section-title p {
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .problem-container {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-        
-        .problem-content {
-            flex: 1;
-        }
-        
-        .problem-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .problem-point {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 30px;
-        }
-        
-        .problem-point i {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: linear-gradient(135deg, rgba(67, 97, 238, 0.05) 0%, rgba(58, 12, 163, 0.05) 100%);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-card i {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        /* How It Works */
-        .how-it-works {
-            padding: 100px 0;
-            background: white;
-        }
-        
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient);
-            z-index: 1;
-        }
-        
-        .step {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            width: 30%;
-        }
-        
-        .step-number {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--gradient);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-        }
-        
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            background: var(--gradient);
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-size: 1.1rem;
+        @media (min-width: 768px) {
+            .hero p {
+                font-size: 1.5rem;
+            }
         }
         
         .cta-buttons {
             display: flex;
+            flex-direction: column;
+            gap: 1rem;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        @media (min-width: 640px) {
+            .cta-buttons {
+                flex-direction: row;
+            }
+        }
+        
+        .primary-button {
+            background: linear-gradient(to right, #06b6d4, #f97316);
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: #000;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .primary-button:hover {
+            background: linear-gradient(to right, #0891b2, #ea580c);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
         
         .secondary-button {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 50px;
+            border: 2px solid #4b5563;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
             font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            background: transparent;
+            color: #fff;
             cursor: pointer;
-            transition: background 0.3s;
         }
         
         .secondary-button:hover {
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #22d3ee;
+            background-color: rgba(17, 24, 39, 0.5);
         }
         
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 60px 0 30px;
+        .hero-visual {
+            position: relative;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .footer-content {
+        .phone-mockup {
+            background: linear-gradient(to bottom, #1f2937, #111827);
+            border-radius: 1.5rem;
+            padding: 0.25rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: rotate(3deg);
+            transition: transform 0.5s;
+        }
+        
+        .phone-mockup:hover {
+            transform: rotate(0);
+        }
+        
+        .phone-content {
+            background-color: #000;
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            border: 1px solid #374151;
+        }
+        
+        .notification {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .notification-time {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .notification-details {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        
+        .bg-effects {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(3rem);
+        }
+        
+        .bg-effect-1 {
+            top: 5rem;
+            left: 2.5rem;
+            width: 18rem;
+            height: 18rem;
+            background-color: rgba(34, 211, 238, 0.1);
+        }
+        
+        .bg-effect-2 {
+            bottom: 5rem;
+            right: 2.5rem;
+            width: 24rem;
+            height: 24rem;
+            background-color: rgba(249, 115, 22, 0.1);
+        }
+        
+        .problem-solution {
+            background-color: rgba(17, 24, 39, 0.5);
+        }
+        
+        .grid-cols-1 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        
+        @media (min-width: 768px) {
+            .md-grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
         }
         
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+        .gap-12 {
+            gap: 3rem;
         }
         
-        .footer-column ul {
+        .problem-solution h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .problem-solution h2 {
+                font-size: 3rem;
+            }
+        }
+        
+        .problem-text {
+            color: #ef4444;
+        }
+        
+        .solution-text {
+            background: linear-gradient(to right, #4ade80, #06b6d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .problem-solution p {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        
+        .feature-card {
+            background-color: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid #374151;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: rgba(34, 211, 238, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .feature-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .feature-icon {
+            flex-shrink: 0;
+            padding: 0.75rem;
+            background-color: #1f2937;
+            border-radius: 0.75rem;
+            transition: background-color 0.3s;
+        }
+        
+        .feature-card:hover .feature-icon {
+            background-color: #374151;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #fff;
+        }
+        
+        .feature-description {
+            color: #d1d5db;
+            line-height: 1.625;
+        }
+        
+        .how-it-works {
+            background-color: rgba(17, 24, 39, 0.5);
+        }
+        
+        .steps-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .steps-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        
+        .step {
+            position: relative;
+            text-align: center;
+        }
+        
+        .step-number {
+            background: linear-gradient(to right, #06b6d4, #2563eb);
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .step-2 .step-number {
+            background: linear-gradient(to right, #f97316, #ca8a04);
+        }
+        
+        .step-3 .step-number {
+            background: linear-gradient(to right, #22c55e, #06b6d4);
+        }
+        
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .step-description {
+            color: #d1d5db;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        
+        .testimonial-card {
+            background-color: rgba(17, 24, 39, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid #374151;
+            transition: all 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            border-color: #374151;
+        }
+        
+        .rating {
+            display: flex;
+            margin-bottom: 1rem;
+        }
+        
+        .star {
+            color: #fbbf24;
+            width: 1.25rem;
+            height: 1.25rem;
+            fill: currentColor;
+        }
+        
+        .testimonial-text {
+            font-size: 1.125rem;
+            color: #e5e7eb;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .testimonial-university {
+            color: #9ca3af;
+        }
+        
+        .benefits-section {
+            background-color: rgba(17, 24, 39, 0.5);
+        }
+        
+        .benefits-container {
+            display: grid;
+            gap: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .benefits-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                align-items: center;
+            }
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .benefit-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .benefit-1 .benefit-icon {
+            background: linear-gradient(to right, #06b6d4, #2563eb);
+        }
+        
+        .benefit-2 .benefit-icon {
+            background: linear-gradient(to right, #f97316, #ca8a04);
+        }
+        
+        .benefit-3 .benefit-icon {
+            background: linear-gradient(to right, #22c55e, #06b6d4);
+        }
+        
+        .benefit-content h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        
+        .benefit-content p {
+            color: #d1d5db;
+        }
+        
+        .schedule-preview {
+            background: linear-gradient(to bottom, #1f2937, #111827);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 1px solid #374151;
+        }
+        
+        .schedule-content {
+            background-color: #000;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+        
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #374151;
+        }
+        
+        .schedule-title {
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .exam-badge {
+            font-size: 0.75rem;
+            background-color: #f97316;
+            color: #000;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+        
+        .schedule-items {
+            margin-top: 1rem;
+        }
+        
+        .schedule-item {
+            padding: 0.75rem;
+            border-left-width: 4px;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .item-1 {
+            background-color: rgba(239, 68, 68, 0.2);
+            border-left-color: #ef4444;
+        }
+        
+        .item-2 {
+            background-color: rgba(34, 211, 238, 0.2);
+            border-left-color: #22d3ee;
+        }
+        
+        .item-time {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-1 .item-time {
+            color: #ef4444;
+        }
+        
+        .item-2 .item-time {
+            color: #22d3ee;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-details {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+        
+        .stat-number {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #22d3ee, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: 2.25rem;
+            }
+        }
+        
+        .stat-label {
+            color: #9ca3af;
+        }
+        
+        .cta-section {
+            background: linear-gradient(to right, rgba(6, 182, 212, 0.2), rgba(249, 115, 22, 0.2));
+            border-top: 1px solid #374151;
+        }
+        
+        .cta-content {
+            max-width: 56rem;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .cta-title {
+                font-size: 3rem;
+            }
+        }
+        
+        .cta-description {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+        }
+        
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        @media (min-width: 640px) {
+            .download-buttons {
+                flex-direction: row;
+            }
+        }
+        
+        .android-button {
+            background: linear-gradient(to right, #06b6d4, #f97316);
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .android-button:hover {
+            background: linear-gradient(to right, #0891b2, #ea580c);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .ios-button {
+            background: linear-gradient(to right, #22c55e, #06b6d4);
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            transform: scale(1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .ios-button:hover {
+            background: linear-gradient(to right, #16a34a, #0891b2);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cta-note {
+            margin-top: 1.5rem;
+            color: #9ca3af;
+        }
+        
+        footer {
+            padding: 3rem 1rem;
+            border-top: 1px solid #374151;
+            background-color: #000;
+        }
+        
+        .footer-grid {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-description {
+            color: #9ca3af;
+        }
+        
+        .footer-heading {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .footer-links {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
         
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column a {
-            color: #ccc;
+        .footer-links a {
+            color: #9ca3af;
             text-decoration: none;
             transition: color 0.3s;
         }
         
-        .footer-column a:hover {
-            color: white;
+        .footer-links a:hover {
+            color: #fff;
         }
         
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.3s;
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-        }
-        
-        .copyright {
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            margin-top: 3rem;
+            padding-top: 2rem;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
+            color: #9ca3af;
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        
+        .text-cyan-400 { color: #22d3ee; }
+        .text-orange-400 { color: #fb923c; }
+        .text-green-400 { color: #4ade80; }
+        .text-yellow-400 { color: #fbbf24; }
+        .text-red-400 { color: #f87171; }
+        
+        .section-heading {
+            font-size: 2.25rem;
+            font-weight: bold;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .section-heading {
+                font-size: 3.75rem;
             }
-            
-            .problem-container {
-                flex-direction: column;
-            }
-            
-            .steps {
-                flex-direction: column;
-                align-items: center;
-                gap: 40px;
-            }
-            
-            .steps::before {
-                display: none;
-            }
-            
-            .step {
-                width: 100%;
-            }
-            
-            .hero-buttons, .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
+        }
+        
+        .heading-cyan-orange {
+            background: linear-gradient(to right, #22d3ee, #f97316);
+        }
+        
+        .heading-green-cyan {
+            background: linear-gradient(to right, #4ade80, #06b6d4);
+        }
+        
+        .heading-yellow-orange {
+            background: linear-gradient(to right, #fbbf24, #f97316);
+        }
+        
+        .heading-cyan-green {
+            background: linear-gradient(to right, #22d3ee, #4ade80);
         }
     </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>UniPlanner</span>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-calendar-alt" style="color: #000;"></i>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="#problem">The Problem</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <button class="cta-button">Get Early Access</button>
-            </nav>
+                <span class="logo-text">UniPlanner</span>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="desktop-menu">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-button" id="mobileMenuButton">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-    </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu hidden" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Stop Struggling with University Schedules</h1>
-            <p>UniPlanner is the intelligent academic companion that automatically merges your class and exam schedules, eliminating confusion during critical exam periods.</p>
-            <div class="hero-buttons">
-                <button class="cta-button"><i class="fab fa-apple"></i> Download for iOS</button>
-                <button class="cta-button"><i class="fab fa-google-play"></i> Download for Android</button>
-            </div>
-            <div class="app-demo">
-                <img src="https://placehold.co/900x500/4361ee/ffffff/png?text=UniPlanner+App+Demo" alt="UniPlanner App Interface">
-            </div>
-        </div>
-    </section>
+            <div class="hero-content">
+                <h1>Never Hunt for Exam Dates<br><span>or Miss Classes Again</span></h1>
+                
+                <p>
+                    Upload your university PDFs and get instant access to all your exam dates, class schedules, 
+                    and automatic reminders. Built specifically for Ghanaian universities.
+                </p>
 
-    <!-- Problem Section -->
-    <section class="problem" id="problem">
-        <div class="container">
-            <div class="section-title">
-                <h2>The Student Scheduling Struggle is Real</h2>
-                <p>University life is complicated enough without the added stress of managing conflicting schedules</p>
-            </div>
-            <div class="problem-container">
-                <div class="problem-content">
-                    <div class="problem-point">
-                        <i class="fas fa-times-circle"></i>
-                        <div>
-                            <h3>Fragmented Information</h3>
-                            <p>Multiple PDFs for classes, exams, and revisions with no connection between them</p>
-                        </div>
-                    </div>
-                    <div class="problem-point">
-                        <i class="fas fa-calendar-times"></i>
-                        <div>
-                            <h3>Exam Period Confusion</h3>
-                            <p>No digital tool understands that exams override regular classes, leading to missed exams or unnecessary travel</p>
-                        </div>
-                    </div>
-                    <div class="problem-point">
-                        <i class="fas fa-brain"></i>
-                        <div>
-                            <h3>Cognitive Overload</h3>
-                            <p>Students waste mental energy cross-referencing documents instead of focusing on studying</p>
+                <div class="cta-buttons">
+                    <button class="primary-button">
+                        Download Free
+                        <i class="fas fa-arrow-right" style="margin-left: 0.5rem; transition: transform 0.3s;"></i>
+                    </button>
+                    <button class="secondary-button">Watch Demo</button>
+                </div>
+
+                <!-- Hero Visual -->
+                <div class="hero-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-content">
+                            <div class="notification-header">
+                                <span class="notification-date" style="font-size: 0.875rem; color: #9ca3af;">Today, March 15</span>
+                                <i class="fas fa-bell" style="color: #fb923c;"></i>
+                            </div>
+                            <div class="notifications">
+                                <div class="notification" style="background-color: rgba(249, 115, 22, 0.2); border: 1px solid #f97316; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;">
+                                    <div class="notification-time" style="color: #fb923c; font-size: 0.875rem; font-weight: 500;">9:00 AM - 12:00 PM</div>
+                                    <div class="notification-title" style="font-weight: 600;">Mathematics Final Exam</div>
+                                    <div class="notification-details" style="font-size: 0.875rem; color: #9ca3af;">Great Hall, KNUST</div>
+                                </div>
+                                <div class="notification" style="background-color: rgba(34, 211, 238, 0.2); border: 1px solid #22d3ee; border-radius: 0.5rem; padding: 0.75rem;">
+                                    <div class="notification-time" style="color: #22d3ee; font-size: 0.875rem; font-weight: 500;">2:00 PM - 4:00 PM</div>
+                                    <div class="notification-title" style="font-weight: 600;">Computer Science Lecture</div>
+                                    <div class="notification-details" style="font-size: 0.875rem; color: #9ca3af;">Tech Building, Room 205</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="problem-image">
-                    <img src="https://placehold.co/400x300/3a0ca3/ffffff/png?text=Problem+Illustration" alt="Scheduling Problems">
+            </div>
+        </div>
+
+        <!-- Background Effects -->
+        <div class="bg-effects bg-effect-1"></div>
+        <div class="bg-effects bg-effect-2"></div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section class="problem-solution">
+        <div class="container">
+            <div class="grid md-grid-cols-2 gap-12">
+                <div>
+                    <h2 class="problem-text">The Struggle is Real</h2>
+                    <div style="font-size: 1.125rem; color: #d1d5db;">
+                        <p>Ghanaian university students face a daily battle with <strong style="color: #fff;">complex PDF schedules</strong> that are impossible to navigate quickly.</p>
+                        <p>Searching for exam dates buried in 20-page documents. Missing classes because you forgot the time. <strong style="color: #f87171;">No reminders, no clarity, just stress.</strong></p>
+                        <p style="color: #f87171; font-weight: 500;">Every semester, students waste hours deciphering schedules instead of focusing on their studies.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="solution-text">We Fix This</h2>
+                    <div style="font-size: 1.125rem; color: #d1d5db;">
+                        <p>UniPlanner's AI instantly <strong style="color: #fff;">extracts every exam date and class time</strong> from your university PDFs.</p>
+                        <p>Smart reminders ensure you <strong style="color: #4ade80;">never miss another class or exam</strong>. Everything organized, everything clear.</p>
+                        <p style="color: #4ade80; font-weight: 500;">Transform hours of schedule hunting into seconds of clarity.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features" id="features">
+    <section id="features">
         <div class="container">
-            <div class="section-title">
-                <h2>Smart Features for Stress-Free Scheduling</h2>
-                <p>UniPlanner understands the rhythm of university life</p>
-            </div>
+            <h2 class="section-heading gradient-text heading-cyan-orange">Built for Ghanaian Students</h2>
+            
             <div class="features-grid">
                 <div class="feature-card">
-                    <i class="fas fa-sync-alt"></i>
-                    <h3>Smart Override Engine</h3>
-                    <p>Automatically suppresses regular classes during exam periods so you only see what's relevant</p>
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-search" style="font-size: 2rem; color: #22d3ee;"></i>
+                        </div>
+                        <div>
+                            <h3 class="feature-title">Instant Exam Discovery</h3>
+                            <p class="feature-description">Upload your PDF schedules and instantly find all your exam dates, times, and venues. No more hunting through complex documents.</p>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-file-pdf"></i>
-                    <h3>One-Tap PDF Intelligence</h3>
-                    <p>Upload any university schedule PDF and let our AI extract all the details automatically</p>
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell" style="font-size: 2rem; color: #fb923c;"></i>
+                        </div>
+                        <div>
+                            <h3 class="feature-title">Smart Reminders</h3>
+                            <p class="feature-description">Automatic notifications for upcoming classes and exams. Never miss another lecture or exam again.</p>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-calendar-day"></i>
-                    <h3>Contextualized Views</h3>
-                    <p>See your day, week, or month at a glance with clear visual indicators for different schedule types</p>
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-upload" style="font-size: 2rem; color: #4ade80;"></i>
+                        </div>
+                        <div>
+                            <h3 class="feature-title">PDF Intelligence</h3>
+                            <p class="feature-description">Our AI reads complex university PDFs and extracts your personal schedule in seconds. Works with any format.</p>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="feature-card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h3>Academic Profile</h3>
-                    <p>Set your program and class group to filter out irrelevant information from multi-group schedules</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-bell"></i>
-                    <h3>Smart Notifications</h3>
-                    <p>Get reminders before classes and exams, with special alerts for schedule changes</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-cloud-download-alt"></i>
-                    <h3>Calendar Export</h3>
-                    <p>Sync your schedule with Google Calendar, Apple Calendar, or any other calendar app</p>
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-alt" style="font-size: 2rem; color: #fbbf24;"></i>
+                        </div>
+                        <div>
+                            <h3 class="feature-title">Unified Schedule View</h3>
+                            <p class="feature-description">All your classes, exams, and academic events in one clean, organized view. No more juggling multiple documents.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-title">
-                <h2>How UniPlanner Works</h2>
-                <p>Getting started is simple and takes less than a minute</p>
-            </div>
-            <div class="steps">
-                <div class="step">
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container text-center">
+            <h2 class="section-heading gradient-text heading-green-cyan">From PDF Chaos to Perfect Clarity</h2>
+            
+            <div class="steps-grid">
+                <div class="step step-1">
                     <div class="step-number">1</div>
-                    <h3>Upload PDFs</h3>
-                    <p>Upload your class and exam schedule PDFs from your university</p>
+                    <h3 class="step-title">Upload Your PDFs</h3>
+                    <p class="step-description">Take photos or upload your class and exam schedule PDFs from your university</p>
                 </div>
-                <div class="step">
+                
+                <div class="step step-2">
                     <div class="step-number">2</div>
-                    <h3>AI Processing</h3>
-                    <p>Our AI extracts all relevant information and identifies schedule types</p>
+                    <h3 class="step-title">AI Does the Work</h3>
+                    <p class="step-description">Our intelligent system reads and extracts all your exam dates, class times, and venues automatically</p>
                 </div>
-                <div class="step">
+                
+                <div class="step step-3">
                     <div class="step-number">3</div>
-                    <h3>Smart Integration</h3>
-                    <p>The app automatically merges and contextualizes your schedules</p>
+                    <h3 class="step-title">Get Organized</h3>
+                    <p class="step-description">View your clean schedule and receive smart reminders so you never miss anything important</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section>
+        <div class="container">
+            <h2 class="section-heading gradient-text heading-yellow-orange">Ghanaian Students Love UniPlanner</h2>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <p class="testimonial-text">"I used to stress about finding my exam dates in those long PDFs. Now I just upload and everything is there instantly!"</p>
+                    <div>
+                        <div class="testimonial-author">Kwame Asante</div>
+                        <div class="testimonial-university">University of Ghana</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <p class="testimonial-text">"The reminders are a lifesaver! I never miss classes anymore and my grades have improved significantly."</p>
+                    <div>
+                        <div class="testimonial-author">Abena Osei</div>
+                        <div class="testimonial-university">KNUST</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <p class="testimonial-text">"Finally, someone made an app that actually understands how Ghanaian universities work. Game changer!"</p>
+                    <div>
+                        <div class="testimonial-author">Emmanuel Adjei</div>
+                        <div class="testimonial-university">University of Cape Coast</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Benefits -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-heading gradient-text heading-cyan-green">Why UniPlanner Works</h2>
+            
+            <div class="benefits-container">
+                <div>
+                    <div class="benefit-item benefit-1">
+                        <div class="benefit-icon">
+                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>No More PDF Hunting</h3>
+                            <p>Stop scrolling through endless pages looking for your exam date. Upload once, find instantly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item benefit-2">
+                        <div class="benefit-icon">
+                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>Never Miss Classes</h3>
+                            <p>Smart reminders keep you on track. Get notified before every class and exam.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-item benefit-3">
+                        <div class="benefit-icon">
+                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                        </div>
+                        <div class="benefit-content">
+                            <h3>Works with Any University</h3>
+                            <p>UG, KNUST, UCC, or any other institution - our AI adapts to any PDF format.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="schedule-preview">
+                    <div class="schedule-content">
+                        <div class="schedule-header">
+                            <span class="schedule-title">This Week</span>
+                            <span class="exam-badge">3 Exams</span>
+                        </div>
+                        
+                        <div class="schedule-items">
+                            <div class="schedule-item item-1">
+                                <div class="item-time">Tomorrow 9:00 AM</div>
+                                <div class="item-title">Physics Final Exam</div>
+                                <div class="item-details">Science Building, Hall 3</div>
+                            </div>
+                            
+                            <div class="schedule-item item-2">
+                                <div class="item-time">Today 2:00 PM</div>
+                                <div class="item-title">Computer Science</div>
+                                <div class="item-details">Tech Block, Room 201</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Effects -->
+        <div class="bg-effects bg-effect-1"></div>
+        <div class="bg-effects bg-effect-2"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section style="border-top: 1px solid #374151;">
+        <div class="container text-center">
+            <h2 style="font-size: 1.875rem; font-weight: bold; margin-bottom: 3rem; color: #fff;">
+                Trusted by Students Across Ghana
+            </h2>
+            <div class="stats-grid">
+                <div>
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Students Helped</div>
+                </div>
+                <div>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Universities Supported</div>
+                </div>
+                <div>
+                    <div class="stat-number">99%</div>
+                    <div class="stat-label">PDF Parse Accuracy</div>
+                </div>
+                <div>
+                    <div class="stat-number">4.8★</div>
+                    <div class="stat-label">App Store Rating</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta">
-        <div class="container">
-            <h2>Ready to Transform Your University Experience?</h2>
-            <p>Join the waitlist to be among the first to experience stress-free academic scheduling</p>
-            <div class="cta-buttons">
-                <button class="cta-button">Get Early Access</button>
-                <button class="secondary-button">View Demo</button>
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Take Control of Your Academic Life?</h2>
+            <p class="cta-description">
+                Join thousands of Ghanaian students who've eliminated scheduling stress with UniPlanner. 
+                It's completely free to use.
+            </p>
+            <div class="download-buttons">
+                <button class="android-button">Download for Android</button>
+                <button class="ios-button">Download for iOS</button>
             </div>
+            
+            <p class="cta-note">
+                100% Free • No Credit Card Required • Works Offline
+            </p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer id="contact">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>UniPlanner</h3>
-                    <p>The intelligent academic companion that eliminates scheduling stress for university students.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-calendar-alt" style="color: #000;"></i>
+                        </div>
+                        <span class="logo-text">UniPlanner</span>
                     </div>
+                    <p class="footer-description">The intelligent academic scheduler built specifically for Ghanaian university students.</p>
                 </div>
-                <div class="footer-column">
-                    <h3>Product</h3>
-                    <ul>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">FAQ</a></li>
+                
+                <div>
+                    <h4 class="footer-heading">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#download">Download</a></li>
                     </ul>
                 </div>
-                <div class="footer-column">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
+                
+                <div>
+                    <h4 class="footer-heading">Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#help-center">Help Center</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#privacy-policy">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 UniPlanner. All rights reserved.</p>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 UniPlanner. Made with ❤️ for Ghanaian students.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Simple smooth scroll functionality
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                // Change icon based on menu state
+                const icon = mobileMenuButton.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.className = 'fas fa-bars';
+                } else {
+                    icon.className = 'fas fa-times';
                 }
             });
-        });
-
-        // Mock early access form
-        document.querySelectorAll('.cta-button').forEach(button => {
-            if (button.textContent.includes('Early Access')) {
-                button.addEventListener('click', function() {
-                    const email = prompt('Enter your email to join the waitlist:');
-                    if (email) {
-                        alert('Thanks! We\'ll notify you when UniPlanner is ready. Your place on the waitlist is confirmed.');
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        mobileMenu.classList.add('hidden');
+                        mobileMenuButton.querySelector('i').className = 'fas fa-bars';
+                        
+                        // Scroll to target
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Button hover effects
+            const primaryButton = document.querySelector('.primary-button');
+            if (primaryButton) {
+                primaryButton.addEventListener('mouseenter', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'translateX(4px)';
+                    }
+                });
+                
+                primaryButton.addEventListener('mouseleave', function() {
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'translateX(0)';
                     }
                 });
             }
