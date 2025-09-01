@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniPlanner - Academic Scheduler for Ghanaian Universities</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Lucide Icons (using CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.1/font/lucide.css">
     <style>
         /* Base styles */
         * {
@@ -18,6 +19,7 @@
             background-color: #000;
             color: #fff;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
         /* Utility classes */
@@ -420,6 +422,8 @@
         
         .how-it-works {
             background-color: rgba(17, 24, 39, 0.5);
+            position: relative;
+            z-index: 1;
         }
         
         .steps-grid {
@@ -503,7 +507,6 @@
             color: #fbbf24;
             width: 1.25rem;
             height: 1.25rem;
-            fill: currentColor;
         }
         
         .testimonial-text {
@@ -841,6 +844,9 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
         }
         
         .text-cyan-400 { color: #22d3ee; }
@@ -854,6 +860,8 @@
             font-weight: bold;
             margin-bottom: 4rem;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         @media (min-width: 768px) {
@@ -877,6 +885,49 @@
         .heading-cyan-green {
             background: linear-gradient(to right, #22d3ee, #4ade80);
         }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1s, transform 1s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Lucide icon styling */
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.125em;
+        }
+        
+        /* Fix for gradient text visibility */
+        .gradient-bg-section {
+            position: relative;
+        }
+        
+        .gradient-bg-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        
+        .gradient-bg-section > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .text-with-shadow {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -885,7 +936,7 @@
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-calendar-alt" style="color: #000;"></i>
+                    <i class="icon" data-lucide="calendar"></i>
                 </div>
                 <span class="logo-text">UniPlanner</span>
             </div>
@@ -899,7 +950,7 @@
 
             <!-- Mobile Menu Button -->
             <button class="mobile-menu-button" id="mobileMenuButton">
-                <i class="fas fa-bars"></i>
+                <i class="icon" data-lucide="menu" id="menuIcon"></i>
             </button>
         </div>
 
@@ -916,7 +967,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
+            <div class="hero-content fade-in">
                 <h1>Never Hunt for Exam Dates<br><span>or Miss Classes Again</span></h1>
                 
                 <p>
@@ -927,7 +978,7 @@
                 <div class="cta-buttons">
                     <button class="primary-button">
                         Download Free
-                        <i class="fas fa-arrow-right" style="margin-left: 0.5rem; transition: transform 0.3s;"></i>
+                        <i class="icon" data-lucide="arrow-right" style="margin-left: 0.5rem;"></i>
                     </button>
                     <button class="secondary-button">Watch Demo</button>
                 </div>
@@ -936,20 +987,20 @@
                 <div class="hero-visual">
                     <div class="phone-mockup">
                         <div class="phone-content">
-                            <div class="notification-header">
-                                <span class="notification-date" style="font-size: 0.875rem; color: #9ca3af;">Today, March 15</span>
-                                <i class="fas fa-bell" style="color: #fb923c;"></i>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <span style="font-size: 0.875rem; color: #9ca3af;">Today, March 15</span>
+                                <i class="icon" data-lucide="bell" style="color: #fb923c;"></i>
                             </div>
-                            <div class="notifications">
-                                <div class="notification" style="background-color: rgba(249, 115, 22, 0.2); border: 1px solid #f97316; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;">
-                                    <div class="notification-time" style="color: #fb923c; font-size: 0.875rem; font-weight: 500;">9:00 AM - 12:00 PM</div>
-                                    <div class="notification-title" style="font-weight: 600;">Mathematics Final Exam</div>
-                                    <div class="notification-details" style="font-size: 0.875rem; color: #9ca3af;">Great Hall, KNUST</div>
+                            <div>
+                                <div style="background-color: rgba(249, 115, 22, 0.2); border: 1px solid #f97316; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;">
+                                    <div style="color: #fb923c; font-size: 0.875rem; font-weight: 500;">9:00 AM - 12:00 PM</div>
+                                    <div style="font-weight: 600;">Mathematics Final Exam</div>
+                                    <div style="font-size: 0.875rem; color: #9ca3af;">Great Hall, KNUST</div>
                                 </div>
-                                <div class="notification" style="background-color: rgba(34, 211, 238, 0.2); border: 1px solid #22d3ee; border-radius: 0.5rem; padding: 0.75rem;">
-                                    <div class="notification-time" style="color: #22d3ee; font-size: 0.875rem; font-weight: 500;">2:00 PM - 4:00 PM</div>
-                                    <div class="notification-title" style="font-weight: 600;">Computer Science Lecture</div>
-                                    <div class="notification-details" style="font-size: 0.875rem; color: #9ca3af;">Tech Building, Room 205</div>
+                                <div style="background-color: rgba(34, 211, 238, 0.2); border: 1px solid #22d3ee; border-radius: 0.5rem; padding: 0.75rem;">
+                                    <div style="color: #22d3ee; font-size: 0.875rem; font-weight: 500;">2:00 PM - 4:00 PM</div>
+                                    <div style="font-weight: 600;">Computer Science Lecture</div>
+                                    <div style="font-size: 0.875rem; color: #9ca3af;">Tech Building, Room 205</div>
                                 </div>
                             </div>
                         </div>
@@ -991,13 +1042,13 @@
     <!-- Features Section -->
     <section id="features">
         <div class="container">
-            <h2 class="section-heading gradient-text heading-cyan-orange">Built for Ghanaian Students</h2>
+            <h2 class="section-heading gradient-text heading-cyan-orange text-with-shadow">Built for Ghanaian Students</h2>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-search" style="font-size: 2rem; color: #22d3ee;"></i>
+                            <i class="icon" data-lucide="search" style="font-size: 2rem; color: #22d3ee;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Instant Exam Discovery</h3>
@@ -1009,7 +1060,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-bell" style="font-size: 2rem; color: #fb923c;"></i>
+                            <i class="icon" data-lucide="bell" style="font-size: 2rem; color: #fb923c;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Smart Reminders</h3>
@@ -1021,7 +1072,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-upload" style="font-size: 2rem; color: #4ade80;"></i>
+                            <i class="icon" data-lucide="upload" style="font-size: 2rem; color: #4ade80;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">PDF Intelligence</h3>
@@ -1033,7 +1084,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="fas fa-calendar-alt" style="font-size: 2rem; color: #fbbf24;"></i>
+                            <i class="icon" data-lucide="calendar" style="font-size: 2rem; color: #fbbf24;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Unified Schedule View</h3>
@@ -1046,9 +1097,9 @@
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
+    <section id="how-it-works" class="how-it-works gradient-bg-section">
         <div class="container text-center">
-            <h2 class="section-heading gradient-text heading-green-cyan">From PDF Chaos to Perfect Clarity</h2>
+            <h2 class="section-heading gradient-text heading-green-cyan text-with-shadow">From PDF Chaos to Perfect Clarity</h2>
             
             <div class="steps-grid">
                 <div class="step step-1">
@@ -1075,16 +1126,16 @@
     <!-- Testimonials -->
     <section>
         <div class="container">
-            <h2 class="section-heading gradient-text heading-yellow-orange">Ghanaian Students Love UniPlanner</h2>
+            <h2 class="section-heading gradient-text heading-yellow-orange text-with-shadow">Ghanaian Students Love UniPlanner</h2>
             
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
                     </div>
                     <p class="testimonial-text">"I used to stress about finding my exam dates in those long PDFs. Now I just upload and everything is there instantly!"</p>
                     <div>
@@ -1095,11 +1146,11 @@
                 
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
                     </div>
                     <p class="testimonial-text">"The reminders are a lifesaver! I never miss classes anymore and my grades have improved significantly."</p>
                     <div>
@@ -1110,11 +1161,11 @@
                 
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
                     </div>
                     <p class="testimonial-text">"Finally, someone made an app that actually understands how Ghanaian universities work. Game changer!"</p>
                     <div>
@@ -1127,15 +1178,15 @@
     </section>
 
     <!-- Key Benefits -->
-    <section class="benefits-section">
+    <section class="benefits-section gradient-bg-section">
         <div class="container">
-            <h2 class="section-heading gradient-text heading-cyan-green">Why UniPlanner Works</h2>
+            <h2 class="section-heading gradient-text heading-cyan-green text-with-shadow">Why UniPlanner Works</h2>
             
             <div class="benefits-container">
                 <div>
                     <div class="benefit-item benefit-1">
                         <div class="benefit-icon">
-                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>No More PDF Hunting</h3>
@@ -1145,7 +1196,7 @@
                     
                     <div class="benefit-item benefit-2">
                         <div class="benefit-icon">
-                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>Never Miss Classes</h3>
@@ -1155,7 +1206,7 @@
                     
                     <div class="benefit-item benefit-3">
                         <div class="benefit-icon">
-                            <i class="fas fa-check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>Works with Any University</h3>
@@ -1247,7 +1298,7 @@
                 <div>
                     <div class="footer-logo">
                         <div class="logo-icon">
-                            <i class="fas fa-calendar-alt" style="color: #000;"></i>
+                            <i class="icon" data-lucide="calendar" style="color: #000;"></i>
                         </div>
                         <span class="logo-text">UniPlanner</span>
                     </div>
@@ -1284,16 +1335,20 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
             
             mobileMenuButton.addEventListener('click', function() {
                 mobileMenu.classList.toggle('hidden');
                 
                 // Change icon based on menu state
-                const icon = mobileMenuButton.querySelector('i');
                 if (mobileMenu.classList.contains('hidden')) {
-                    icon.className = 'fas fa-bars';
+                    menuIcon.setAttribute('data-lucide', 'menu');
                 } else {
-                    icon.className = 'fas fa-times';
+                    menuIcon.setAttribute('data-lucide', 'x');
+                }
+                // Trigger Lucide to update the icon
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
                 }
             });
             
@@ -1309,7 +1364,10 @@
                     if (targetElement) {
                         // Close mobile menu if open
                         mobileMenu.classList.add('hidden');
-                        mobileMenuButton.querySelector('i').className = 'fas fa-bars';
+                        menuIcon.setAttribute('data-lucide', 'menu');
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
                         
                         // Scroll to target
                         targetElement.scrollIntoView({
@@ -1322,19 +1380,55 @@
             // Button hover effects
             const primaryButton = document.querySelector('.primary-button');
             if (primaryButton) {
+                const arrowIcon = primaryButton.querySelector('.icon');
                 primaryButton.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'translateX(4px)';
+                    if (arrowIcon) {
+                        arrowIcon.style.transform = 'translateX(4px)';
                     }
                 });
                 
                 primaryButton.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'translateX(0)';
+                    if (arrowIcon) {
+                        arrowIcon.style.transform = 'translateX(0)';
                     }
                 });
+            }
+            
+            // Fade in animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const fadeOptions = {
+                threshold: 0.3
+            };
+            
+            const fadeObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, fadeOptions);
+            
+            fadeElements.forEach(element => {
+                fadeObserver.observe(element);
+            });
+        });
+        
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    
+    <!-- Lucide Icons JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@0.263.1/umd/lucide.min.js"></script>
+    <script>
+        // Initialize Lucide icons after the library is loaded
+        window.addEventListener('load', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
             }
         });
     </script>
