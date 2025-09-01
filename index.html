@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniPlanner - Academic Scheduler for Ghanaian Universities</title>
-    <!-- Lucide Icons (using CDN) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.263.1/font/lucide.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Base styles */
         * {
@@ -14,10 +13,23 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --primary: #06b6d4;
+            --primary-dark: #0891b2;
+            --secondary: #f97316;
+            --secondary-dark: #ea580c;
+            --accent: #22d3ee;
+            --text: #ffffff;
+            --text-secondary: #d1d5db;
+            --background: #000000;
+            --card-bg: rgba(17, 24, 39, 0.8);
+            --border: #374151;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #000;
-            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -26,7 +38,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
         
         .flex {
@@ -41,14 +53,40 @@
             text-align: center;
         }
         
+        /* Modern header styles */
+        .modern-header {
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .modern-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .text-center .modern-header::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
         /* Component styles */
         nav {
-            position: relative;
+            position: sticky;
+            top: 0;
             z-index: 50;
-            padding: 1.5rem 1rem;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            border-bottom: 1px solid #374151;
+            padding: 1.2rem 1.5rem;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
         }
         
         .nav-container {
@@ -62,27 +100,32 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
         
         .logo-icon {
-            width: 2rem;
-            height: 2rem;
-            background: linear-gradient(to right, #22d3ee, #f97316);
-            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
         }
         
         .logo-text {
-            font-size: 1.25rem;
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .desktop-menu {
             display: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
         
         @media (min-width: 768px) {
@@ -92,21 +135,43 @@
         }
         
         .desktop-menu a {
-            color: #fff;
+            color: var(--text);
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .desktop-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
         }
         
         .desktop-menu a:hover {
-            color: #22d3ee;
+            color: var(--primary);
+        }
+        
+        .desktop-menu a:hover::after {
+            width: 100%;
         }
         
         .mobile-menu-button {
             display: block;
             background: none;
             border: none;
-            color: #fff;
+            color: var(--text);
             cursor: pointer;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         @media (min-width: 768px) {
@@ -120,68 +185,71 @@
             top: 100%;
             left: 0;
             right: 0;
-            background-color: rgba(17, 24, 39, 0.95);
-            backdrop-filter: blur(4px);
-            border-top: 1px solid #374151;
+            background-color: rgba(17, 24, 39, 0.98);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 0;
         }
         
         .mobile-menu-content {
-            padding: 1.5rem 1rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
+            padding: 0 1.5rem;
         }
         
         .mobile-menu a {
-            color: #fff;
+            color: var(--text);
             text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(55, 65, 81, 0.3);
             transition: color 0.3s;
         }
         
         .mobile-menu a:hover {
-            color: #22d3ee;
+            color: var(--primary);
         }
         
         section {
-            padding: 5rem 1rem;
+            padding: 5rem 1.5rem;
         }
         
         .hero {
             position: relative;
-            padding: 5rem 1rem;
+            padding: 6rem 1.5rem;
             text-align: center;
+            overflow: hidden;
         }
         
         @media (min-width: 768px) {
             .hero {
-                padding: 8rem 1rem;
+                padding: 9rem 1.5rem;
             }
         }
         
         .hero h1 {
-            font-size: 2.25rem;
-            font-weight: bold;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #22d3ee, #f97316, #fbbf24);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
             line-height: 1.2;
         }
         
         @media (min-width: 768px) {
             .hero h1 {
-                font-size: 4.5rem;
+                font-size: 4rem;
             }
         }
         
         .hero p {
-            font-size: 1.125rem;
-            color: #d1d5db;
-            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
             max-width: 64rem;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
         }
         
         @media (min-width: 768px) {
@@ -193,10 +261,10 @@
         .cta-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
             justify-content: center;
             align-items: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
         
         @media (min-width: 640px) {
@@ -206,126 +274,158 @@
         }
         
         .primary-button {
-            background: linear-gradient(to right, #06b6d4, #f97316);
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 1.2rem 2.5rem;
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
             transform: scale(1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.4);
             color: #000;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .primary-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .primary-button:hover::before {
+            left: 100%;
         }
         
         .primary-button:hover {
-            background: linear-gradient(to right, #0891b2, #ea580c);
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.5);
         }
         
         .secondary-button {
-            border: 2px solid #4b5563;
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            border: 2px solid var(--border);
+            padding: 1.2rem 2.5rem;
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
             background: transparent;
-            color: #fff;
+            color: var(--text);
             cursor: pointer;
         }
         
         .secondary-button:hover {
-            border-color: #22d3ee;
-            background-color: rgba(17, 24, 39, 0.5);
+            border-color: var(--primary);
+            background-color: rgba(6, 182, 212, 0.1);
+            transform: translateY(-3px);
         }
         
         .hero-visual {
             position: relative;
-            max-width: 28rem;
+            max-width: 32rem;
             margin-left: auto;
             margin-right: auto;
         }
         
         .phone-mockup {
-            background: linear-gradient(to bottom, #1f2937, #111827);
-            border-radius: 1.5rem;
-            padding: 0.25rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: rotate(3deg);
-            transition: transform 0.5s;
+            background: linear-gradient(145deg, #1a2536, #0f1729);
+            border-radius: 24px;
+            padding: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            transform: perspective(1000px) rotateX(5deg) rotateY(0deg) rotateZ(3deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(55, 65, 81, 0.5);
         }
         
         .phone-mockup:hover {
-            transform: rotate(0);
+            transform: perspective(1000px) rotateX(0) rotateY(0) rotateZ(0);
+            box-shadow: 0 30px 60px -12px rgba(6, 182, 212, 0.25);
         }
         
         .phone-content {
-            background-color: #000;
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            border: 1px solid #374151;
+            background-color: var(--background);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
         }
         
         .notification {
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification:hover {
+            transform: translateY(-2px);
         }
         
         .notification-time {
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
         .notification-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .notification-details {
-            font-size: 0.875rem;
-            color: #9ca3af;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
         
         .bg-effects {
             position: absolute;
             border-radius: 50%;
-            filter: blur(3rem);
+            filter: blur(80px);
+            opacity: 0.5;
+            z-index: -1;
         }
         
         .bg-effect-1 {
-            top: 5rem;
-            left: 2.5rem;
-            width: 18rem;
-            height: 18rem;
-            background-color: rgba(34, 211, 238, 0.1);
+            top: 10%;
+            left: 10%;
+            width: 30rem;
+            height: 30rem;
+            background: var(--primary);
+            animation: float 8s ease-in-out infinite;
         }
         
         .bg-effect-2 {
-            bottom: 5rem;
-            right: 2.5rem;
-            width: 24rem;
-            height: 24rem;
-            background-color: rgba(249, 115, 22, 0.1);
+            bottom: 10%;
+            right: 10%;
+            width: 35rem;
+            height: 35rem;
+            background: var(--secondary);
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(20px); }
         }
         
         .problem-solution {
-            background-color: rgba(17, 24, 39, 0.5);
-        }
-        
-        .grid-cols-1 {
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-        }
-        
-        @media (min-width: 768px) {
-            .md-grid-cols-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 4rem 2rem;
+            border: 1px solid var(--border);
         }
         
         .grid {
@@ -337,37 +437,35 @@
         }
         
         .problem-solution h2 {
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
         }
         
         @media (min-width: 768px) {
             .problem-solution h2 {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
         }
         
         .problem-text {
-            color: #ef4444;
+            color: var(--primary);
         }
         
         .solution-text {
-            background: linear-gradient(to right, #4ade80, #06b6d4);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: var(--secondary);
         }
         
         .problem-solution p {
-            font-size: 1.125rem;
-            color: #d1d5db;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
         }
         
         .features-grid {
             display: grid;
-            gap: 2rem;
+            gap: 2.5rem;
         }
         
         @media (min-width: 768px) {
@@ -377,58 +475,88 @@
         }
         
         .feature-card {
-            background-color: rgba(17, 24, 39, 0.5);
-            backdrop-filter: blur(4px);
-            border-radius: 1rem;
-            padding: 2rem;
-            border: 1px solid #374151;
-            transition: all 0.3s;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            transition: height 0.5s ease;
         }
         
         .feature-card:hover {
-            border-color: rgba(34, 211, 238, 0.5);
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+        
+        .feature-card:hover::before {
+            height: 100%;
         }
         
         .feature-header {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
         .feature-icon {
             flex-shrink: 0;
-            padding: 0.75rem;
-            background-color: #1f2937;
-            border-radius: 0.75rem;
-            transition: background-color 0.3s;
+            padding: 1rem;
+            background: rgba(17, 24, 39, 0.7);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
         }
         
         .feature-card:hover .feature-icon {
-            background-color: #374151;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: rotateY(180deg);
         }
         
         .feature-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 0.75rem;
-            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
         }
         
         .feature-description {
-            color: #d1d5db;
-            line-height: 1.625;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
         
         .how-it-works {
-            background-color: rgba(17, 24, 39, 0.5);
-            position: relative;
-            z-index: 1;
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 5rem 2rem;
+            border: 1px solid var(--border);
         }
         
         .steps-grid {
             display: grid;
-            gap: 2rem;
+            gap: 3rem;
         }
         
         @media (min-width: 768px) {
@@ -440,43 +568,62 @@
         .step {
             position: relative;
             text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
         }
         
         .step-number {
-            background: linear-gradient(to right, #06b6d4, #2563eb);
-            width: 4rem;
-            height: 4rem;
+            width: 5rem;
+            height: 5rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
+            margin: 0 auto 2rem;
+            font-size: 1.8rem;
+            font-weight: 800;
             color: #000;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .step-1 .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         }
         
         .step-2 .step-number {
-            background: linear-gradient(to right, #f97316, #ca8a04);
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
         }
         
         .step-3 .step-number {
-            background: linear-gradient(to right, #22c55e, #06b6d4);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
         
         .step-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text);
         }
         
         .step-description {
-            color: #d1d5db;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
         
         .testimonials-grid {
             display: grid;
-            gap: 2rem;
+            gap: 2.5rem;
         }
         
         @media (min-width: 768px) {
@@ -486,52 +633,79 @@
         }
         
         .testimonial-card {
-            background-color: rgba(17, 24, 39, 0.5);
-            backdrop-filter: blur(4px);
-            border-radius: 1rem;
-            padding: 2rem;
-            border: 1px solid #374151;
-            transition: all 0.3s;
+            background-color: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+            line-height: 1;
         }
         
         .testimonial-card:hover {
-            border-color: #374151;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
         }
         
         .rating {
             display: flex;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
         }
         
         .star {
             color: #fbbf24;
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.4rem;
+            height: 1.4rem;
+            margin: 0 0.1rem;
         }
         
         .testimonial-text {
-            font-size: 1.125rem;
-            color: #e5e7eb;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
             font-style: italic;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
         
         .testimonial-author {
-            font-weight: 600;
-            color: #fff;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.5rem;
         }
         
         .testimonial-university {
-            color: #9ca3af;
+            color: var(--primary);
+            font-size: 0.9rem;
         }
         
         .benefits-section {
-            background-color: rgba(17, 24, 39, 0.5);
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 5rem 2rem;
+            border: 1px solid var(--border);
         }
         
         .benefits-container {
             display: grid;
-            gap: 3rem;
+            gap: 4rem;
         }
         
         @media (min-width: 768px) {
@@ -544,103 +718,123 @@
         .benefit-item {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
         
         .benefit-icon {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.5rem;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            font-size: 1.5rem;
+            color: #000;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
         
         .benefit-1 .benefit-icon {
-            background: linear-gradient(to right, #06b6d4, #2563eb);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
         }
         
         .benefit-2 .benefit-icon {
-            background: linear-gradient(to right, #f97316, #ca8a04);
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
         }
         
         .benefit-3 .benefit-icon {
-            background: linear-gradient(to right, #22c55e, #06b6d4);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
         }
         
         .benefit-content h3 {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text);
         }
         
         .benefit-content p {
-            color: #d1d5db;
+            color: var(--text-secondary);
+            line-height: 1.7;
         }
         
         .schedule-preview {
-            background: linear-gradient(to bottom, #1f2937, #111827);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            border: 1px solid #374151;
+            background: linear-gradient(145deg, #1a2536, #0f1729);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            transform: perspective(1000px) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .schedule-preview:hover {
+            transform: perspective(1000px) rotateX(0);
         }
         
         .schedule-content {
-            background-color: #000;
-            border-radius: 1rem;
-            padding: 1.5rem;
+            background-color: var(--background);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
         }
         
         .schedule-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #374151;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
         }
         
         .schedule-title {
-            font-weight: 600;
-            color: #fff;
+            font-weight: 700;
+            color: var(--text);
+            font-size: 1.2rem;
         }
         
         .exam-badge {
-            font-size: 0.75rem;
-            background-color: #f97316;
+            font-size: 0.8rem;
+            background: var(--secondary);
             color: #000;
-            padding: 0.25rem 0.5rem;
-            border-radius: 9999px;
-            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 700;
         }
         
         .schedule-items {
-            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
         
         .schedule-item {
-            padding: 0.75rem;
-            border-left-width: 4px;
-            border-radius: 0.5rem;
-            margin-bottom: 0.75rem;
+            padding: 1.2rem;
+            border-left: 4px solid;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .schedule-item:hover {
+            transform: translateX(5px);
         }
         
         .item-1 {
-            background-color: rgba(239, 68, 68, 0.2);
+            background-color: rgba(239, 68, 68, 0.15);
             border-left-color: #ef4444;
         }
         
         .item-2 {
-            background-color: rgba(34, 211, 238, 0.2);
-            border-left-color: #22d3ee;
+            background-color: rgba(34, 211, 238, 0.15);
+            border-left-color: var(--primary);
         }
         
         .item-time {
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
         
         .item-1 .item-time {
@@ -648,23 +842,24 @@
         }
         
         .item-2 .item-time {
-            color: #22d3ee;
+            color: var(--primary);
         }
         
         .item-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         
         .item-details {
-            font-size: 0.875rem;
-            color: #9ca3af;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
         }
         
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
         
         @media (min-width: 768px) {
@@ -673,11 +868,26 @@
             }
         }
         
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
         .stat-number {
-            font-size: 1.875rem;
-            font-weight: bold;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #22d3ee, #f97316);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -685,49 +895,56 @@
         
         @media (min-width: 768px) {
             .stat-number {
-                font-size: 2.25rem;
+                font-size: 3rem;
             }
         }
         
         .stat-label {
-            color: #9ca3af;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
         }
         
         .cta-section {
-            background: linear-gradient(to right, rgba(6, 182, 212, 0.2), rgba(249, 115, 22, 0.2));
-            border-top: 1px solid #374151;
+            background: linear-gradient(to right, rgba(6, 182, 212, 0.1), rgba(249, 115, 22, 0.1));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 6rem 1.5rem;
         }
         
         .cta-content {
-            max-width: 56rem;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
         }
         
         .cta-title {
-            font-size: 1.875rem;
-            font-weight: bold;
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
+            color: var(--text);
         }
         
         @media (min-width: 768px) {
             .cta-title {
-                font-size: 3rem;
+                font-size: 3.2rem;
             }
         }
         
         .cta-description {
-            font-size: 1.25rem;
-            color: #d1d5db;
-            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.7;
         }
         
         .download-buttons {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
+            max-width: 500px;
+            margin: 0 auto;
         }
         
         @media (min-width: 640px) {
@@ -737,59 +954,60 @@
         }
         
         .android-button {
-            background: linear-gradient(to right, #06b6d4, #f97316);
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 1.2rem 2rem;
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
-            transform: scale(1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.4);
             color: #000;
             border: none;
             cursor: pointer;
+            flex: 1;
         }
         
         .android-button:hover {
-            background: linear-gradient(to right, #0891b2, #ea580c);
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.5);
         }
         
         .ios-button {
-            background: linear-gradient(to right, #22c55e, #06b6d4);
-            padding: 1rem 2rem;
-            border-radius: 0.75rem;
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            padding: 1.2rem 2rem;
+            border-radius: 14px;
             font-weight: 600;
-            font-size: 1.125rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
-            transform: scale(1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px -3px rgba(34, 197, 94, 0.4);
             color: #000;
             border: none;
             cursor: pointer;
+            flex: 1;
         }
         
         .ios-button:hover {
-            background: linear-gradient(to right, #16a34a, #0891b2);
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -5px rgba(34, 197, 94, 0.5);
         }
         
         .cta-note {
-            margin-top: 1.5rem;
-            color: #9ca3af;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
         footer {
-            padding: 3rem 1rem;
-            border-top: 1px solid #374151;
-            background-color: #000;
+            padding: 4rem 1.5rem 2rem;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid var(--border);
         }
         
         .footer-grid {
             display: grid;
-            gap: 2rem;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         @media (min-width: 768px) {
@@ -801,95 +1019,56 @@
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
         
         .footer-description {
-            color: #9ca3af;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 300px;
         }
         
         .footer-heading {
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #fff;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 1.2rem;
         }
         
         .footer-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 1rem;
         }
         
         .footer-links a {
-            color: #9ca3af;
+            color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.3s;
+            display: inline-block;
         }
         
         .footer-links a:hover {
-            color: #fff;
+            color: var(--primary);
+            transform: translateX(5px);
         }
         
         .footer-bottom {
-            border-top: 1px solid #374151;
-            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
             padding-top: 2rem;
             text-align: center;
-            color: #9ca3af;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
-        .gradient-text {
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .text-cyan-400 { color: #22d3ee; }
-        .text-orange-400 { color: #fb923c; }
-        .text-green-400 { color: #4ade80; }
-        .text-yellow-400 { color: #fbbf24; }
-        .text-red-400 { color: #f87171; }
-        
-        .section-heading {
-            font-size: 2.25rem;
-            font-weight: bold;
-            margin-bottom: 4rem;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        @media (min-width: 768px) {
-            .section-heading {
-                font-size: 3.75rem;
-            }
-        }
-        
-        .heading-cyan-orange {
-            background: linear-gradient(to right, #22d3ee, #f97316);
-        }
-        
-        .heading-green-cyan {
-            background: linear-gradient(to right, #4ade80, #06b6d4);
-        }
-        
-        .heading-yellow-orange {
-            background: linear-gradient(to right, #fbbf24, #f97316);
-        }
-        
-        .heading-cyan-green {
-            background: linear-gradient(to right, #22d3ee, #4ade80);
-        }
-        
+        /* Animation for fade-in elements */
         .fade-in {
             opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 1s, transform 1s;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
         
         .fade-in.visible {
@@ -897,36 +1076,16 @@
             transform: translateY(0);
         }
         
-        /* Lucide icon styling */
+        /* Section spacing */
+        .section-spacing {
+            margin: 5rem auto;
+        }
+        
+        /* Icon styling */
         .icon {
             width: 1em;
             height: 1em;
             vertical-align: -0.125em;
-        }
-        
-        /* Fix for gradient text visibility */
-        .gradient-bg-section {
-            position: relative;
-        }
-        
-        .gradient-bg-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
-        }
-        
-        .gradient-bg-section > * {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .text-with-shadow {
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
     </style>
 </head>
@@ -936,7 +1095,7 @@
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="icon" data-lucide="calendar"></i>
+                    <i class="fas fa-calendar-alt"></i>
                 </div>
                 <span class="logo-text">UniPlanner</span>
             </div>
@@ -950,7 +1109,7 @@
 
             <!-- Mobile Menu Button -->
             <button class="mobile-menu-button" id="mobileMenuButton">
-                <i class="icon" data-lucide="menu" id="menuIcon"></i>
+                <i class="fas fa-bars" id="menuIcon"></i>
             </button>
         </div>
 
@@ -968,7 +1127,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1>Never Hunt for Exam Dates<br><span>or Miss Classes Again</span></h1>
+                <h1 class="modern-header">Never Hunt for Exam Dates or Miss Classes Again</h1>
                 
                 <p>
                     Upload your university PDFs and get instant access to all your exam dates, class schedules, 
@@ -978,7 +1137,7 @@
                 <div class="cta-buttons">
                     <button class="primary-button">
                         Download Free
-                        <i class="icon" data-lucide="arrow-right" style="margin-left: 0.5rem;"></i>
+                        <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
                     </button>
                     <button class="secondary-button">Watch Demo</button>
                 </div>
@@ -987,20 +1146,20 @@
                 <div class="hero-visual">
                     <div class="phone-mockup">
                         <div class="phone-content">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                                <span style="font-size: 0.875rem; color: #9ca3af;">Today, March 15</span>
-                                <i class="icon" data-lucide="bell" style="color: #fb923c;"></i>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                                <span style="font-size: 0.9rem; color: #9ca3af;">Today, March 15</span>
+                                <i class="fas fa-bell" style="color: #fb923c;"></i>
                             </div>
                             <div>
-                                <div style="background-color: rgba(249, 115, 22, 0.2); border: 1px solid #f97316; border-radius: 0.5rem; padding: 0.75rem; margin-bottom: 0.75rem;">
-                                    <div style="color: #fb923c; font-size: 0.875rem; font-weight: 500;">9:00 AM - 12:00 PM</div>
-                                    <div style="font-weight: 600;">Mathematics Final Exam</div>
-                                    <div style="font-size: 0.875rem; color: #9ca3af;">Great Hall, KNUST</div>
+                                <div class="notification" style="background-color: rgba(249, 115, 22, 0.15); border-left: 4px solid #f97316;">
+                                    <div class="notification-time">9:00 AM - 12:00 PM</div>
+                                    <div class="notification-title">Mathematics Final Exam</div>
+                                    <div class="notification-details">Great Hall, KNUST</div>
                                 </div>
-                                <div style="background-color: rgba(34, 211, 238, 0.2); border: 1px solid #22d3ee; border-radius: 0.5rem; padding: 0.75rem;">
-                                    <div style="color: #22d3ee; font-size: 0.875rem; font-weight: 500;">2:00 PM - 4:00 PM</div>
-                                    <div style="font-weight: 600;">Computer Science Lecture</div>
-                                    <div style="font-size: 0.875rem; color: #9ca3af;">Tech Building, Room 205</div>
+                                <div class="notification" style="background-color: rgba(34, 211, 238, 0.15); border-left: 4px solid #22d3ee;">
+                                    <div class="notification-time">2:00 PM - 4:00 PM</div>
+                                    <div class="notification-title">Computer Science Lecture</div>
+                                    <div class="notification-details">Tech Building, Room 205</div>
                                 </div>
                             </div>
                         </div>
@@ -1019,20 +1178,20 @@
         <div class="container">
             <div class="grid md-grid-cols-2 gap-12">
                 <div>
-                    <h2 class="problem-text">The Struggle is Real</h2>
-                    <div style="font-size: 1.125rem; color: #d1d5db;">
-                        <p>Ghanaian university students face a daily battle with <strong style="color: #fff;">complex PDF schedules</strong> that are impossible to navigate quickly.</p>
-                        <p>Searching for exam dates buried in 20-page documents. Missing classes because you forgot the time. <strong style="color: #f87171;">No reminders, no clarity, just stress.</strong></p>
-                        <p style="color: #f87171; font-weight: 500;">Every semester, students waste hours deciphering schedules instead of focusing on their studies.</p>
+                    <h2 class="modern-header problem-text">The Struggle is Real</h2>
+                    <div>
+                        <p>Ghanaian university students face a daily battle with <strong>complex PDF schedules</strong> that are impossible to navigate quickly.</p>
+                        <p>Searching for exam dates buried in 20-page documents. Missing classes because you forgot the time. <strong>No reminders, no clarity, just stress.</strong></p>
+                        <p><strong>Every semester, students waste hours deciphering schedules instead of focusing on their studies.</strong></p>
                     </div>
                 </div>
                 
                 <div>
-                    <h2 class="solution-text">We Fix This</h2>
-                    <div style="font-size: 1.125rem; color: #d1d5db;">
-                        <p>UniPlanner's AI instantly <strong style="color: #fff;">extracts every exam date and class time</strong> from your university PDFs.</p>
-                        <p>Smart reminders ensure you <strong style="color: #4ade80;">never miss another class or exam</strong>. Everything organized, everything clear.</p>
-                        <p style="color: #4ade80; font-weight: 500;">Transform hours of schedule hunting into seconds of clarity.</p>
+                    <h2 class="modern-header solution-text">We Fix This</h2>
+                    <div>
+                        <p>UniPlanner's AI instantly <strong>extracts every exam date and class time</strong> from your university PDFs.</p>
+                        <p>Smart reminders ensure you <strong>never miss another class or exam</strong>. Everything organized, everything clear.</p>
+                        <p><strong>Transform hours of schedule hunting into seconds of clarity.</strong></p>
                     </div>
                 </div>
             </div>
@@ -1040,15 +1199,15 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features">
+    <section id="features" class="section-spacing">
         <div class="container">
-            <h2 class="section-heading gradient-text heading-cyan-orange text-with-shadow">Built for Ghanaian Students</h2>
+            <h2 class="modern-header text-center">Built for Ghanaian Students</h2>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="icon" data-lucide="search" style="font-size: 2rem; color: #22d3ee;"></i>
+                            <i class="fas fa-search" style="font-size: 1.8rem;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Instant Exam Discovery</h3>
@@ -1060,7 +1219,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="icon" data-lucide="bell" style="font-size: 2rem; color: #fb923c;"></i>
+                            <i class="fas fa-bell" style="font-size: 1.8rem;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Smart Reminders</h3>
@@ -1072,7 +1231,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="icon" data-lucide="upload" style="font-size: 2rem; color: #4ade80;"></i>
+                            <i class="fas fa-upload" style="font-size: 1.8rem;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">PDF Intelligence</h3>
@@ -1084,7 +1243,7 @@
                 <div class="feature-card">
                     <div class="feature-header">
                         <div class="feature-icon">
-                            <i class="icon" data-lucide="calendar" style="font-size: 2rem; color: #fbbf24;"></i>
+                            <i class="fas fa-calendar-alt" style="font-size: 1.8rem;"></i>
                         </div>
                         <div>
                             <h3 class="feature-title">Unified Schedule View</h3>
@@ -1097,9 +1256,9 @@
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works gradient-bg-section">
+    <section id="how-it-works" class="how-it-works">
         <div class="container text-center">
-            <h2 class="section-heading gradient-text heading-green-cyan text-with-shadow">From PDF Chaos to Perfect Clarity</h2>
+            <h2 class="modern-header">From PDF Chaos to Perfect Clarity</h2>
             
             <div class="steps-grid">
                 <div class="step step-1">
@@ -1124,18 +1283,18 @@
     </section>
 
     <!-- Testimonials -->
-    <section>
+    <section class="section-spacing">
         <div class="container">
-            <h2 class="section-heading gradient-text heading-yellow-orange text-with-shadow">Ghanaian Students Love UniPlanner</h2>
+            <h2 class="modern-header text-center">Ghanaian Students Love UniPlanner</h2>
             
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
                     </div>
                     <p class="testimonial-text">"I used to stress about finding my exam dates in those long PDFs. Now I just upload and everything is there instantly!"</p>
                     <div>
@@ -1146,11 +1305,11 @@
                 
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
                     </div>
                     <p class="testimonial-text">"The reminders are a lifesaver! I never miss classes anymore and my grades have improved significantly."</p>
                     <div>
@@ -1161,11 +1320,11 @@
                 
                 <div class="testimonial-card">
                     <div class="rating">
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
-                        <i class="icon" data-lucide="star" style="color: #fbbf24; fill: currentColor;"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
                     </div>
                     <p class="testimonial-text">"Finally, someone made an app that actually understands how Ghanaian universities work. Game changer!"</p>
                     <div>
@@ -1178,15 +1337,15 @@
     </section>
 
     <!-- Key Benefits -->
-    <section class="benefits-section gradient-bg-section">
+    <section class="benefits-section">
         <div class="container">
-            <h2 class="section-heading gradient-text heading-cyan-green text-with-shadow">Why UniPlanner Works</h2>
+            <h2 class="modern-header text-center">Why UniPlanner Works</h2>
             
             <div class="benefits-container">
                 <div>
                     <div class="benefit-item benefit-1">
                         <div class="benefit-icon">
-                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>No More PDF Hunting</h3>
@@ -1196,7 +1355,7 @@
                     
                     <div class="benefit-item benefit-2">
                         <div class="benefit-icon">
-                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>Never Miss Classes</h3>
@@ -1206,7 +1365,7 @@
                     
                     <div class="benefit-item benefit-3">
                         <div class="benefit-icon">
-                            <i class="icon" data-lucide="check-circle" style="font-size: 1.5rem; color: #000;"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                         <div class="benefit-content">
                             <h3>Works with Any University</h3>
@@ -1239,32 +1398,26 @@
                 </div>
             </div>
         </div>
-
-        <!-- Background Effects -->
-        <div class="bg-effects bg-effect-1"></div>
-        <div class="bg-effects bg-effect-2"></div>
     </section>
 
     <!-- Stats Section -->
-    <section style="border-top: 1px solid #374151;">
+    <section class="section-spacing">
         <div class="container text-center">
-            <h2 style="font-size: 1.875rem; font-weight: bold; margin-bottom: 3rem; color: #fff;">
-                Trusted by Students Across Ghana
-            </h2>
+            <h2 class="modern-header">Trusted by Students Across Ghana</h2>
             <div class="stats-grid">
-                <div>
+                <div class="stat-item">
                     <div class="stat-number">50K+</div>
                     <div class="stat-label">Students Helped</div>
                 </div>
-                <div>
+                <div class="stat-item">
                     <div class="stat-number">15+</div>
                     <div class="stat-label">Universities Supported</div>
                 </div>
-                <div>
+                <div class="stat-item">
                     <div class="stat-number">99%</div>
                     <div class="stat-label">PDF Parse Accuracy</div>
                 </div>
-                <div>
+                <div class="stat-item">
                     <div class="stat-number">4.8★</div>
                     <div class="stat-label">App Store Rating</div>
                 </div>
@@ -1293,40 +1446,38 @@
 
     <!-- Footer -->
     <footer id="contact">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo">
-                        <div class="logo-icon">
-                            <i class="icon" data-lucide="calendar" style="color: #000;"></i>
-                        </div>
-                        <span class="logo-text">UniPlanner</span>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <p class="footer-description">The intelligent academic scheduler built specifically for Ghanaian university students.</p>
+                    <span class="logo-text">UniPlanner</span>
                 </div>
-                
-                <div>
-                    <h4 class="footer-heading">Product</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#download">Download</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="footer-heading">Support</h4>
-                    <ul class="footer-links">
-                        <li><a href="#help-center">Help Center</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
-                        <li><a href="#privacy-policy">Privacy Policy</a></li>
-                    </ul>
-                </div>
+                <p class="footer-description">The intelligent academic scheduler built specifically for Ghanaian university students.</p>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 UniPlanner. Made with ❤️ for Ghanaian students.</p>
+            <div>
+                <h4 class="footer-heading">Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
             </div>
+            
+            <div>
+                <h4 class="footer-heading">Support</h4>
+                <ul class="footer-links">
+                    <li><a href="#help-center">Help Center</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#privacy-policy">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 UniPlanner. Made with ❤️ for Ghanaian students.</p>
         </div>
     </footer>
 
@@ -1342,13 +1493,9 @@
                 
                 // Change icon based on menu state
                 if (mobileMenu.classList.contains('hidden')) {
-                    menuIcon.setAttribute('data-lucide', 'menu');
+                    menuIcon.className = 'fas fa-bars';
                 } else {
-                    menuIcon.setAttribute('data-lucide', 'x');
-                }
-                // Trigger Lucide to update the icon
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
+                    menuIcon.className = 'fas fa-times';
                 }
             });
             
@@ -1364,10 +1511,7 @@
                     if (targetElement) {
                         // Close mobile menu if open
                         mobileMenu.classList.add('hidden');
-                        menuIcon.setAttribute('data-lucide', 'menu');
-                        if (typeof lucide !== 'undefined') {
-                            lucide.createIcons();
-                        }
+                        menuIcon.className = 'fas fa-bars';
                         
                         // Scroll to target
                         targetElement.scrollIntoView({
@@ -1377,58 +1521,37 @@
                 });
             });
             
+            // Fade-in animation for elements
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(element => {
+                fadeInObserver.observe(element);
+            });
+            
             // Button hover effects
             const primaryButton = document.querySelector('.primary-button');
             if (primaryButton) {
-                const arrowIcon = primaryButton.querySelector('.icon');
                 primaryButton.addEventListener('mouseenter', function() {
-                    if (arrowIcon) {
-                        arrowIcon.style.transform = 'translateX(4px)';
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'translateX(5px)';
                     }
                 });
                 
                 primaryButton.addEventListener('mouseleave', function() {
-                    if (arrowIcon) {
-                        arrowIcon.style.transform = 'translateX(0)';
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.style.transform = 'translateX(0)';
                     }
                 });
-            }
-            
-            // Fade in animation
-            const fadeElements = document.querySelectorAll('.fade-in');
-            const fadeOptions = {
-                threshold: 0.3
-            };
-            
-            const fadeObserver = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, fadeOptions);
-            
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
-            });
-        });
-        
-        // Initialize Lucide icons
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-        });
-    </script>
-    
-    <!-- Lucide Icons JS -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide-static@0.263.1/umd/lucide.min.js"></script>
-    <script>
-        // Initialize Lucide icons after the library is loaded
-        window.addEventListener('load', function() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
             }
         });
     </script>
