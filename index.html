@@ -14,16 +14,17 @@
         }
         
         :root {
-            --primary: #06b6d4;
-            --primary-dark: #0891b2;
-            --secondary: #f97316;
-            --secondary-dark: #ea580c;
-            --accent: #22d3ee;
-            --text: #ffffff;
-            --text-secondary: #d1d5db;
-            --background: #000000;
-            --card-bg: rgba(17, 24, 39, 0.8);
-            --border: #374151;
+            --primary: #3bbaa9; /* Calming seafoam green */
+            --primary-dark: #2a8e80;
+            --secondary: #6c63ff; /* Softer purple instead of orange */
+            --secondary-dark: #564fd4;
+            --accent: #84dfd3;
+            --text: #2d3748; /* Dark gray instead of white */
+            --text-secondary: #718096;
+            --background: #f7fafc; /* Light background */
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
         }
         
         body {
@@ -55,7 +56,7 @@
         
         /* Modern header styles */
         .modern-header {
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1.2;
             margin-bottom: 2rem;
             position: relative;
@@ -84,9 +85,10 @@
             top: 0;
             z-index: 50;
             padding: 1.2rem 1.5rem;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(247, 250, 252, 0.95);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
         
         .nav-container {
@@ -111,7 +113,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: var(--shadow);
         }
         
         .logo-text {
@@ -185,11 +187,12 @@
             top: 100%;
             left: 0;
             right: 0;
-            background-color: rgba(17, 24, 39, 0.98);
+            background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(12px);
             border-top: 1px solid var(--border);
             z-index: 100;
             padding: 1rem 0;
+            box-shadow: var(--shadow);
         }
         
         .mobile-menu-content {
@@ -204,7 +207,7 @@
             text-decoration: none;
             font-weight: 500;
             padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(55, 65, 81, 0.3);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
             transition: color 0.3s;
         }
         
@@ -231,14 +234,15 @@
         
         .hero h1 {
             font-size: 2.5rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            color: var(--text);
         }
         
         @media (min-width: 768px) {
             .hero h1 {
-                font-size: 4rem;
+                font-size: 3.5rem;
             }
         }
         
@@ -254,7 +258,7 @@
         
         @media (min-width: 768px) {
             .hero p {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
         }
         
@@ -281,8 +285,8 @@
             font-size: 1.1rem;
             transition: all 0.3s;
             transform: scale(1);
-            box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.4);
-            color: #000;
+            box-shadow: var(--shadow);
+            color: white;
             border: none;
             cursor: pointer;
             display: flex;
@@ -308,24 +312,23 @@
         
         .primary-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 15px 30px -5px rgba(59, 186, 169, 0.3);
         }
         
         .secondary-button {
-            border: 2px solid var(--border);
+            border: 2px solid var(--primary);
             padding: 1.2rem 2.5rem;
             border-radius: 14px;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s;
             background: transparent;
-            color: var(--text);
+            color: var(--primary);
             cursor: pointer;
         }
         
         .secondary-button:hover {
-            border-color: var(--primary);
-            background-color: rgba(6, 182, 212, 0.1);
+            background-color: rgba(59, 186, 169, 0.1);
             transform: translateY(-3px);
         }
         
@@ -337,22 +340,22 @@
         }
         
         .phone-mockup {
-            background: linear-gradient(145deg, #1a2536, #0f1729);
+            background: white;
             border-radius: 24px;
             padding: 0.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             transform: perspective(1000px) rotateX(5deg) rotateY(0deg) rotateZ(3deg);
             transition: transform 0.5s ease, box-shadow 0.5s ease;
-            border: 1px solid rgba(55, 65, 81, 0.5);
+            border: 1px solid var(--border);
         }
         
         .phone-mockup:hover {
             transform: perspective(1000px) rotateX(0) rotateY(0) rotateZ(0);
-            box-shadow: 0 30px 60px -12px rgba(6, 182, 212, 0.25);
+            box-shadow: 0 30px 60px -12px rgba(59, 186, 169, 0.2);
         }
         
         .phone-content {
-            background-color: var(--background);
+            background-color: white;
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid var(--border);
@@ -363,8 +366,8 @@
             padding: 1rem;
             border-radius: 12px;
             margin-bottom: 1rem;
-            backdrop-filter: blur(10px);
             transition: transform 0.3s ease;
+            border-left: 4px solid;
         }
         
         .notification:hover {
@@ -392,7 +395,7 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.5;
+            opacity: 0.15;
             z-index: -1;
         }
         
@@ -426,6 +429,7 @@
             max-width: 1200px;
             padding: 4rem 2rem;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
         
         .grid {
@@ -438,13 +442,13 @@
         
         .problem-solution h2 {
             font-size: 2.2rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 2rem;
         }
         
         @media (min-width: 768px) {
             .problem-solution h2 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
         }
         
@@ -483,6 +487,7 @@
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
         
         .feature-card::before {
@@ -498,8 +503,8 @@
         
         .feature-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: rgba(59, 186, 169, 0.3);
         }
         
         .feature-card:hover::before {
@@ -516,7 +521,7 @@
         .feature-icon {
             flex-shrink: 0;
             padding: 1rem;
-            background: rgba(17, 24, 39, 0.7);
+            background: rgba(247, 250, 252, 0.7);
             border-radius: 16px;
             transition: all 0.3s ease;
             border: 1px solid var(--border);
@@ -530,6 +535,7 @@
         .feature-card:hover .feature-icon {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             transform: rotateY(180deg);
+            color: white;
         }
         
         .feature-title {
@@ -552,6 +558,7 @@
             max-width: 1200px;
             padding: 5rem 2rem;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
         
         .steps-grid {
@@ -570,14 +577,15 @@
             text-align: center;
             padding: 2rem;
             border-radius: 20px;
-            background: rgba(17, 24, 39, 0.5);
+            background: white;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            box-shadow: var(--shadow);
         }
         
         .step:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             border-color: var(--primary);
         }
         
@@ -591,10 +599,10 @@
             margin: 0 auto 2rem;
             font-size: 1.8rem;
             font-weight: 800;
-            color: #000;
+            color: white;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow);
         }
         
         .step-1 .step-number {
@@ -606,7 +614,7 @@
         }
         
         .step-3 .step-number {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #3bbaa9, #2a8e80);
         }
         
         .step-title {
@@ -640,6 +648,7 @@
             border: 1px solid var(--border);
             transition: all 0.3s ease;
             position: relative;
+            box-shadow: var(--shadow);
         }
         
         .testimonial-card::before {
@@ -656,7 +665,7 @@
         
         .testimonial-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             border-color: var(--primary);
         }
         
@@ -701,6 +710,7 @@
             max-width: 1200px;
             padding: 5rem 2rem;
             border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
         
         .benefits-container {
@@ -731,8 +741,8 @@
             justify-content: center;
             flex-shrink: 0;
             font-size: 1.5rem;
-            color: #000;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+            box-shadow: var(--shadow);
         }
         
         .benefit-1 .benefit-icon {
@@ -744,7 +754,7 @@
         }
         
         .benefit-3 .benefit-icon {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background: linear-gradient(135deg, #3bbaa9, #2a8e80);
         }
         
         .benefit-content h3 {
@@ -760,10 +770,10 @@
         }
         
         .schedule-preview {
-            background: linear-gradient(145deg, #1a2536, #0f1729);
+            background: white;
             border-radius: 24px;
             padding: 2rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow);
             border: 1px solid var(--border);
             transform: perspective(1000px) rotateX(5deg);
             transition: transform 0.5s ease;
@@ -774,7 +784,7 @@
         }
         
         .schedule-content {
-            background-color: var(--background);
+            background-color: white;
             border-radius: 20px;
             padding: 2rem;
             border: 1px solid var(--border);
@@ -798,7 +808,7 @@
         .exam-badge {
             font-size: 0.8rem;
             background: var(--secondary);
-            color: #000;
+            color: white;
             padding: 0.4rem 0.8rem;
             border-radius: 20px;
             font-weight: 700;
@@ -815,6 +825,7 @@
             border-left: 4px solid;
             border-radius: 12px;
             transition: all 0.3s ease;
+            background-color: #f8fafc;
         }
         
         .schedule-item:hover {
@@ -822,13 +833,11 @@
         }
         
         .item-1 {
-            background-color: rgba(239, 68, 68, 0.15);
-            border-left-color: #ef4444;
+            border-left-color: var(--primary);
         }
         
         .item-2 {
-            background-color: rgba(34, 211, 238, 0.15);
-            border-left-color: var(--primary);
+            border-left-color: var(--secondary);
         }
         
         .item-time {
@@ -838,11 +847,11 @@
         }
         
         .item-1 .item-time {
-            color: #ef4444;
+            color: var(--primary);
         }
         
         .item-2 .item-time {
-            color: var(--primary);
+            color: var(--secondary);
         }
         
         .item-title {
@@ -875,12 +884,13 @@
             border-radius: 20px;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            box-shadow: var(--shadow);
         }
         
         .stat-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
         .stat-number {
@@ -905,7 +915,7 @@
         }
         
         .cta-section {
-            background: linear-gradient(to right, rgba(6, 182, 212, 0.1), rgba(249, 115, 22, 0.1));
+            background: linear-gradient(to right, rgba(59, 186, 169, 0.1), rgba(108, 99, 255, 0.1));
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             padding: 6rem 1.5rem;
@@ -920,14 +930,14 @@
         
         .cta-title {
             font-size: 2.5rem;
-            font-weight: 800;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             color: var(--text);
         }
         
         @media (min-width: 768px) {
             .cta-title {
-                font-size: 3.2rem;
+                font-size: 3rem;
             }
         }
         
@@ -960,8 +970,8 @@
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s;
-            box-shadow: 0 10px 25px -3px rgba(6, 182, 212, 0.4);
-            color: #000;
+            box-shadow: var(--shadow);
+            color: white;
             border: none;
             cursor: pointer;
             flex: 1;
@@ -969,18 +979,18 @@
         
         .android-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.5);
+            box-shadow: 0 15px 30px -5px rgba(59, 186, 169, 0.3);
         }
         
         .ios-button {
-            background: linear-gradient(to right, #22c55e, #16a34a);
+            background: linear-gradient(to right, var(--secondary), var(--secondary-dark));
             padding: 1.2rem 2rem;
             border-radius: 14px;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s;
-            box-shadow: 0 10px 25px -3px rgba(34, 197, 94, 0.4);
-            color: #000;
+            box-shadow: var(--shadow);
+            color: white;
             border: none;
             cursor: pointer;
             flex: 1;
@@ -988,7 +998,7 @@
         
         .ios-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px -5px rgba(34, 197, 94, 0.5);
+            box-shadow: 0 15px 30px -5px rgba(108, 99, 255, 0.3);
         }
         
         .cta-note {
@@ -999,7 +1009,7 @@
         
         footer {
             padding: 4rem 1.5rem 2rem;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: white;
             border-top: 1px solid var(--border);
         }
         
@@ -1095,7 +1105,7 @@
         <div class="nav-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="fas fa-calendar-alt" style="color: white;"></i>
                 </div>
                 <span class="logo-text">UniPlanner</span>
             </div>
@@ -1127,7 +1137,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content fade-in">
-                <h1 class="modern-header">Never Hunt for Exam Dates or Miss Classes Again</h1>
+                <h1 class="modern-header">Find Peace in Your Academic Schedule</h1>
                 
                 <p>
                     Upload your university PDFs and get instant access to all your exam dates, class schedules, 
@@ -1147,16 +1157,16 @@
                     <div class="phone-mockup">
                         <div class="phone-content">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                                <span style="font-size: 0.9rem; color: #9ca3af;">Today, March 15</span>
-                                <i class="fas fa-bell" style="color: #fb923c;"></i>
+                                <span style="font-size: 0.9rem; color: var(--text-secondary);">Today, March 15</span>
+                                <i class="fas fa-bell" style="color: var(--primary);"></i>
                             </div>
                             <div>
-                                <div class="notification" style="background-color: rgba(249, 115, 22, 0.15); border-left: 4px solid #f97316;">
+                                <div class="notification" style="border-left-color: var(--primary);">
                                     <div class="notification-time">9:00 AM - 12:00 PM</div>
                                     <div class="notification-title">Mathematics Final Exam</div>
                                     <div class="notification-details">Great Hall, KNUST</div>
                                 </div>
-                                <div class="notification" style="background-color: rgba(34, 211, 238, 0.15); border-left: 4px solid #22d3ee;">
+                                <div class="notification" style="border-left-color: var(--secondary);">
                                     <div class="notification-time">2:00 PM - 4:00 PM</div>
                                     <div class="notification-title">Computer Science Lecture</div>
                                     <div class="notification-details">Tech Building, Room 205</div>
@@ -1187,373 +1197,6 @@
                 </div>
                 
                 <div>
-                    <h2 class="modern-header solution-text">We Fix This</h2>
+                    <h2 class="modern-header solution-text">We Bring Clarity</h2>
                     <div>
-                        <p>UniPlanner's AI instantly <strong>extracts every exam date and class time</strong> from your university PDFs.</p>
-                        <p>Smart reminders ensure you <strong>never miss another class or exam</strong>. Everything organized, everything clear.</p>
-                        <p><strong>Transform hours of schedule hunting into seconds of clarity.</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="section-spacing">
-        <div class="container">
-            <h2 class="modern-header text-center">Built for Ghanaian Students</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-search" style="font-size: 1.8rem;"></i>
-                        </div>
-                        <div>
-                            <h3 class="feature-title">Instant Exam Discovery</h3>
-                            <p class="feature-description">Upload your PDF schedules and instantly find all your exam dates, times, and venues. No more hunting through complex documents.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-bell" style="font-size: 1.8rem;"></i>
-                        </div>
-                        <div>
-                            <h3 class="feature-title">Smart Reminders</h3>
-                            <p class="feature-description">Automatic notifications for upcoming classes and exams. Never miss another lecture or exam again.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-upload" style="font-size: 1.8rem;"></i>
-                        </div>
-                        <div>
-                            <h3 class="feature-title">PDF Intelligence</h3>
-                            <p class="feature-description">Our AI reads complex university PDFs and extracts your personal schedule in seconds. Works with any format.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-header">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-alt" style="font-size: 1.8rem;"></i>
-                        </div>
-                        <div>
-                            <h3 class="feature-title">Unified Schedule View</h3>
-                            <p class="feature-description">All your classes, exams, and academic events in one clean, organized view. No more juggling multiple documents.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container text-center">
-            <h2 class="modern-header">From PDF Chaos to Perfect Clarity</h2>
-            
-            <div class="steps-grid">
-                <div class="step step-1">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Upload Your PDFs</h3>
-                    <p class="step-description">Take photos or upload your class and exam schedule PDFs from your university</p>
-                </div>
-                
-                <div class="step step-2">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">AI Does the Work</h3>
-                    <p class="step-description">Our intelligent system reads and extracts all your exam dates, class times, and venues automatically</p>
-                </div>
-                
-                <div class="step step-3">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Get Organized</h3>
-                    <p class="step-description">View your clean schedule and receive smart reminders so you never miss anything important</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="section-spacing">
-        <div class="container">
-            <h2 class="modern-header text-center">Ghanaian Students Love UniPlanner</h2>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                    </div>
-                    <p class="testimonial-text">"I used to stress about finding my exam dates in those long PDFs. Now I just upload and everything is there instantly!"</p>
-                    <div>
-                        <div class="testimonial-author">Kwame Asante</div>
-                        <div class="testimonial-university">University of Ghana</div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                    </div>
-                    <p class="testimonial-text">"The reminders are a lifesaver! I never miss classes anymore and my grades have improved significantly."</p>
-                    <div>
-                        <div class="testimonial-author">Abena Osei</div>
-                        <div class="testimonial-university">KNUST</div>
-                    </div>
-                </div>
-                
-                <div class="testimonial-card">
-                    <div class="rating">
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                        <i class="fas fa-star star"></i>
-                    </div>
-                    <p class="testimonial-text">"Finally, someone made an app that actually understands how Ghanaian universities work. Game changer!"</p>
-                    <div>
-                        <div class="testimonial-author">Emmanuel Adjei</div>
-                        <div class="testimonial-university">University of Cape Coast</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Key Benefits -->
-    <section class="benefits-section">
-        <div class="container">
-            <h2 class="modern-header text-center">Why UniPlanner Works</h2>
-            
-            <div class="benefits-container">
-                <div>
-                    <div class="benefit-item benefit-1">
-                        <div class="benefit-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>No More PDF Hunting</h3>
-                            <p>Stop scrolling through endless pages looking for your exam date. Upload once, find instantly.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item benefit-2">
-                        <div class="benefit-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>Never Miss Classes</h3>
-                            <p>Smart reminders keep you on track. Get notified before every class and exam.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-item benefit-3">
-                        <div class="benefit-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="benefit-content">
-                            <h3>Works with Any University</h3>
-                            <p>UG, KNUST, UCC, or any other institution - our AI adapts to any PDF format.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="schedule-preview">
-                    <div class="schedule-content">
-                        <div class="schedule-header">
-                            <span class="schedule-title">This Week</span>
-                            <span class="exam-badge">3 Exams</span>
-                        </div>
-                        
-                        <div class="schedule-items">
-                            <div class="schedule-item item-1">
-                                <div class="item-time">Tomorrow 9:00 AM</div>
-                                <div class="item-title">Physics Final Exam</div>
-                                <div class="item-details">Science Building, Hall 3</div>
-                            </div>
-                            
-                            <div class="schedule-item item-2">
-                                <div class="item-time">Today 2:00 PM</div>
-                                <div class="item-title">Computer Science</div>
-                                <div class="item-details">Tech Block, Room 201</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="section-spacing">
-        <div class="container text-center">
-            <h2 class="modern-header">Trusted by Students Across Ghana</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">50K+</div>
-                    <div class="stat-label">Students Helped</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">Universities Supported</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">99%</div>
-                    <div class="stat-label">PDF Parse Accuracy</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">4.8★</div>
-                    <div class="stat-label">App Store Rating</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2 class="cta-title">Ready to Take Control of Your Academic Life?</h2>
-            <p class="cta-description">
-                Join thousands of Ghanaian students who've eliminated scheduling stress with UniPlanner. 
-                It's completely free to use.
-            </p>
-            <div class="download-buttons">
-                <button class="android-button">Download for Android</button>
-                <button class="ios-button">Download for iOS</button>
-            </div>
-            
-            <p class="cta-note">
-                100% Free • No Credit Card Required • Works Offline
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <span class="logo-text">UniPlanner</span>
-                </div>
-                <p class="footer-description">The intelligent academic scheduler built specifically for Ghanaian university students.</p>
-            </div>
-            
-            <div>
-                <h4 class="footer-heading">Product</h4>
-                <ul class="footer-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#download">Download</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="footer-heading">Support</h4>
-                <ul class="footer-links">
-                    <li><a href="#help-center">Help Center</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
-                    <li><a href="#privacy-policy">Privacy Policy</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 UniPlanner. Made with ❤️ for Ghanaian students.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobileMenuButton');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuIcon = document.getElementById('menuIcon');
-            
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-                
-                // Change icon based on menu state
-                if (mobileMenu.classList.contains('hidden')) {
-                    menuIcon.className = 'fas fa-bars';
-                } else {
-                    menuIcon.className = 'fas fa-times';
-                }
-            });
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        // Close mobile menu if open
-                        mobileMenu.classList.add('hidden');
-                        menuIcon.className = 'fas fa-bars';
-                        
-                        // Scroll to target
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Fade-in animation for elements
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const fadeInObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            fadeElements.forEach(element => {
-                fadeInObserver.observe(element);
-            });
-            
-            // Button hover effects
-            const primaryButton = document.querySelector('.primary-button');
-            if (primaryButton) {
-                primaryButton.addEventListener('mouseenter', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'translateX(5px)';
-                    }
-                });
-                
-                primaryButton.addEventListener('mouseleave', function() {
-                    const icon = this.querySelector('i');
-                    if (icon) {
-                        icon.style.transform = 'translateX(0)';
-                    }
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+                        <p
